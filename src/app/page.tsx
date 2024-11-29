@@ -23,8 +23,10 @@ const Home = () => {
               Join hands with thousands of students and research professionals
               to instantly answer questions & research with AI
             </p>
-            <div className="w-full t-4">
-
+            <div className="w-full mt-4 t-4">
+              <Link to="/sign-in">
+                <Button>Login to get Started</Button>
+              </Link>
             </div>
           </div>
         </div>
