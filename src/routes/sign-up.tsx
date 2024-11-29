@@ -1,5 +1,9 @@
-import { SignUp } from '@clerk/clerk-react'
+import { SignUp } from "@clerk/clerk-react";
 
 export default function SignUpPage() {
-  return <SignUp path="/sign-up" />
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <SignUp path="/sign-up" />
+    </div>
+  );
 }
