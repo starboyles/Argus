@@ -25,7 +25,7 @@ const Home = () => {
             </p>
             <div className="w-full mt-4 t-4">
               <Link to="/sign-in">
-                <Button>Login to get Started</Button>
+                <Button>Get Started</Button>
               </Link>
             </div>
           </div>
