@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
-import {Activity, LogIn} from 'lucide-react'
+import { Activity, LogIn } from "lucide-react";
 import {
   ClerkProvider,
   UserButton,
@@ -26,8 +26,9 @@ const Home = () => {
             </p>
             <div className="w-full mt-4 t-4">
               <Link to="/sign-in">
-                <Button>Get Started
-                  <LogIn className="w-4 h-4 ml-1.5"/>
+                <Button>
+                  Get Started
+                  <LogIn className="w-4 h-4 ml-1.5" />
                 </Button>
               </Link>
             </div>
@@ -45,8 +46,9 @@ const Home = () => {
             <UserButton />
           </div>
           <div className="flex mt-5">
-            <Button>Go to Chats
-              <Activity className="w-4 h-4 ml-1.5"/>
+            <Button>
+              Go to Chats
+              <Activity className="w-4 h-4 ml-1.5" />
             </Button>
           </div>
         </div>
