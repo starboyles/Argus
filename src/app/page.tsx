@@ -17,7 +17,7 @@ const Home = () => {
           <div className="flex flex-col items-center text-center">
             <div className="flex items-center">
               <h1 className="mr-3 text-5xl font-extrabold">
-                Chat with Your PDF
+                Chat with your PDF
               </h1>
             </div>
             <p className="max-w-xl mt-2 text-lg text-slate-600">
@@ -42,7 +42,7 @@ const Home = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
-            <h1 className="mr-3 text-5xl font-extrabold">Chat Your PDF</h1>
+            <h1 className="mr-3 text-5xl font-extrabold">Chat with your PDF</h1>
             <UserButton />
           </div>
           <div className="flex mt-5">
