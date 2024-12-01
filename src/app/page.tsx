@@ -21,7 +21,7 @@ const Home = () => {
               </h1>
             </div>
             <p className="max-w-xl mt-2 text-lg text-slate-600">
-              Join hands with thousands of students and research professionals
+              Join thousands of developers, students & researchers
               to instantly answer questions & research with AI
             </p>
             <div className="w-full mt-4 t-4">
