@@ -1,14 +1,19 @@
-import { Outlet, useNavigate } from 'react-router-dom'
-import { ClerkProvider, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react'
+import { Outlet, useNavigate } from "react-router-dom";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/clerk-react";
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key')
+  throw new Error("Missing Publishable Key");
 }
 
 export default function RootLayout() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <ClerkProvider
@@ -18,15 +23,13 @@ export default function RootLayout() {
     >
       <header className="header">
         <div>
-          <SignedIn>
-          </SignedIn>
-          <SignedOut>
-          </SignedOut>
+          <SignedIn></SignedIn>
+          <SignedOut></SignedOut>
         </div>
       </header>
       <main>
         <Outlet />
       </main>
     </ClerkProvider>
-  )
+  );
 }
