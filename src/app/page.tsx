@@ -1,15 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Activity, LogIn } from "lucide-react";
-import {
-  ClerkProvider,
-  UserButton,
-  useAuth,
-  useUser,
-} from "@clerk/clerk-react";
+import { UserButton, useUser } from "@clerk/clerk-react";
 
 const Home = () => {
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn } = useUser();
   if (!isSignedIn) {
     return (
       <div className="w-screen min-h-screen bg-gray-50">
@@ -21,8 +16,8 @@ const Home = () => {
               </h1>
             </div>
             <p className="max-w-xl mt-2 text-lg text-slate-600">
-              Join thousands of developers, students & researchers
-              to instantly answer questions & research with AI
+              Join thousands of developers, students & researchers to instantly
+              answer questions & research with AI
             </p>
             <div className="w-full mt-4 t-4">
               <Link to="/sign-in">
