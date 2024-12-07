@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Activity, LogIn } from "lucide-react";
 import { UserButton, useUser } from "@clerk/clerk-react";
+import FileUpload from "../components/ui/fileUpload";
 
 const Home = () => {
   const { isSignedIn } = useUser();
@@ -39,6 +40,13 @@ const Home = () => {
           <div className="flex items-center">
             <h1 className="mr-3 text-5xl font-extrabold">Chat with your PDF</h1>
             <UserButton />
+          </div>
+          <p className="max-w-xl mt-2 text-lg text-slate-600">
+            Easily upload and analyze a variety of file formats, including .pdf,
+            .docx, .ppt, & .epub 
+          </p>
+          <div className="w-full mt-4">
+            <FileUpload />
           </div>
           <div className="flex mt-5">
             <Button>
