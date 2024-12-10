@@ -36,28 +36,30 @@ const FileUpload = () => {
       console.log(acceptedFiles);
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
-        toast.error("File is too big! Max file size is 10MB. Compress!")
-        alert("File is too big! Max file size is 10MB. Compress!");
+        toast.error("File is too big! Max file size is 10MB. Compress!");
         return;
       }
 
       try {
         const data = await uploadToS3(file);
         if (!data.file_Key || !data.file_name) {
-          alert("Sth went wrong -- check your uploads");
+          toast.error("Sth went wrong -- check your uploads");
           return;
         }
-        mutate({
+        mutate(
+          {
             file_key: data.file_Key,
             file_name: data.file_name,
-          },{
-          onSuccess: (data) => {
-            console.log(data);
           },
-          onError: (err) => {
-            console.log(err);
-          },
-        });
+          {
+            onSuccess: (data) => {
+              console.log(data);
+            },
+            onError: (err) => {
+              toast.error("Error creating chat");
+            },
+          }
+        );
       } catch (error) {
         console.log(error);
       }
