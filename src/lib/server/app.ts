@@ -5,6 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api/v1/chat", createChat);
+app.use("/api/v1/create-chat", createChat);
 
 module.exports = app;
