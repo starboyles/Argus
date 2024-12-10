@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   return (
     <Providers>
-      <Toaster />
+      <Toaster position="top-center" reverseOrder={false} />
       <ClerkProvider
         routerPush={(to) => navigate(to)}
         routerReplace={(to) => navigate(to, { replace: true })}
