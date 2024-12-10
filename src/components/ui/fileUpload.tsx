@@ -3,6 +3,7 @@ import { Inbox } from "lucide-react";
 import { uploadToS3 } from "../../lib/server/s3";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 const FileUpload = () => {
   const { mutate } = useMutation({
@@ -35,6 +36,7 @@ const FileUpload = () => {
       console.log(acceptedFiles);
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
+        toast.error("File is too big! Max file size is 10MB. Compress!")
         alert("File is too big! Max file size is 10MB. Compress!");
         return;
       }
