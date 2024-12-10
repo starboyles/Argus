@@ -14,6 +14,7 @@ export default function RootLayout() {
 
   return (
     <Providers>
+      <Toaster />
       <ClerkProvider
         routerPush={(to) => navigate(to)}
         routerReplace={(to) => navigate(to, { replace: true })}
@@ -28,7 +29,6 @@ export default function RootLayout() {
         <main>
           <Outlet />
         </main>
-        <Toaster />
       </ClerkProvider>
     </Providers>
   );
