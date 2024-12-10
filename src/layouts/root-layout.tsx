@@ -4,6 +4,7 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/clerk-react";
+import Providers from "../components/providers";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -15,6 +16,7 @@ export default function RootLayout() {
   const navigate = useNavigate();
 
   return (
+    <Providers>
     <ClerkProvider
       routerPush={(to) => navigate(to)}
       routerReplace={(to) => navigate(to, { replace: true })}
@@ -30,5 +32,6 @@ export default function RootLayout() {
         <Outlet />
       </main>
     </ClerkProvider>
+    </Providers>
   );
 }
