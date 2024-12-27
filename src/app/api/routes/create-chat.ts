@@ -4,4 +4,4 @@ import { createChat as createChatController } from "../controllers/chat-controll
 
 const createChat = express.Router();
 
-createChat.route("/").post(createChatController);
+createChat.route("/api/v1/create-chat").post(createChatController);
