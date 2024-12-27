@@ -11,26 +11,29 @@ export async function uploadToS3(file: File) {
       region: "ap-southeast-1",
     });
 
-    const file_Key = `uploads/${Date.now()}-${file.name.replace(/ /g, "-")}`;
+    const file_key = `uploads/${Date.now()}-${file.name.replace(/ /g, "-")}`;
+    console.log("Generated File key in S3:", file_key);
 
     const params = {
       Bucket: import.meta.env.VITE_AWS_BUCKET_NAME,
-      Key: file_Key,
+      Key: file_key,
       Body: file,
-      ContentType: file.type, 
+      ContentType: file.type,
     };
 
     const upload = await s3.upload(params).promise();
 
     console.log("Uploaded successfully:", upload);
 
-    return {
-      file_Key,
+    const returnData = {
+      file_key: file_key,
       file_name: file.name,
-      url: upload.Location 
+      url: upload.Location,
     };
+    console.log("S3 return data:", returnData);
+    return returnData;
   } catch (error) {
     console.error("S3 Upload Error:", error);
-    throw error; 
+    throw error;
   }
 }
