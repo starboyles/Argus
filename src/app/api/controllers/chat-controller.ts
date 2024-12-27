@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { loadS3IntoPinecone } from "../../../lib/pinecone";
 
 
 export const createChat = async (req: Request, res: Response) => {
@@ -7,6 +8,7 @@ export const createChat = async (req: Request, res: Response) => {
         const { file_key, file_name } = req.body;
         console.log('file_key:', file_key);
         console.log('file_name:', file_name);
+        await loadS3IntoPinecone(file_key);
         
         res.status(200).json({
             status: 'success',
