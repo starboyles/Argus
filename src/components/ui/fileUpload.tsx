@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 interface S3UploadResponse {
-  file_Key: string; 
+  file_key: string; 
   file_name: string;
   url: string;
 }
@@ -19,6 +19,7 @@ const FileUpload = () => {
       file_key: string;
       file_name: string;
     }) => {
+      console.log("Data sent to the server:", {file_key, file_name} )
       const response = await axios.post("/api/v1/create-chat", {
         file_key,
         file_name,
@@ -47,19 +48,20 @@ const FileUpload = () => {
     
       try {
         const data = await uploadToS3(file) as S3UploadResponse;
-        if (!data.file_Key || !data.file_name) { 
+        console.log("Raw data received frorm uploadToS3:", data);
+        if (!data.file_key || !data.file_name) { 
           toast.error("Something went wrong -- check your uploads");
           return;
         }
         
         console.log("Data being sent to create-chat:", {
-          file_key: data.file_Key,  
+          file_key: data.file_key,  
           file_name: data.file_name
         });
     
         mutate(
           {
-            file_key: data.file_Key, 
+            file_key: data.file_key, 
             file_name: data.file_name,
           },
           {
