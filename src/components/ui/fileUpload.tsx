@@ -5,6 +5,11 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
+interface S3UploadResponse {
+  file_Key: string; 
+  file_name: string;
+  url: string;
+}
 const FileUpload = () => {
   const { mutate } = useMutation({
     mutationFn: async ({
@@ -39,31 +44,40 @@ const FileUpload = () => {
         toast.error("File is too big! Max file size is 10MB. Compress!");
         return;
       }
-
+    
       try {
-        const data = await uploadToS3(file);
-        if (!data.file_Key || !data.file_name) {
-          toast.error("Sth went wrong -- check your uploads");
+        const data = await uploadToS3(file) as S3UploadResponse;
+        if (!data.file_Key || !data.file_name) { 
+          toast.error("Something went wrong -- check your uploads");
           return;
         }
+        
+        console.log("Data being sent to create-chat:", {
+          file_key: data.file_Key,  
+          file_name: data.file_name
+        });
+    
         mutate(
           {
-            file_key: data.file_Key,
+            file_key: data.file_Key, 
             file_name: data.file_name,
           },
           {
             onSuccess: (data) => {
-              console.log(data);
+              console.log("Success:", data);
+              toast.success("Chat created successfully!");
             },
-            onError: (err) => {
+            onError: (error) => {
+              console.error("Error details:", error);
               toast.error("Error creating chat");
             },
           }
         );
       } catch (error) {
-        console.log(error);
+        console.error("Upload error:", error);
+        toast.error("Error uploading file");
       }
-    },
+    }
   });
   return (
     <div className="p-2 rounded-xl border-dashed border-2 cursor-pointer bg-white py-8 flex justify-center items-center flex-col">
