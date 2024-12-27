@@ -3,13 +3,14 @@ import { Request, Response } from "express";
 
 export const createChat = async (req: Request, res: Response) => {
     try {
-        const { file_Key, file_name } = req.body;
-        console.log('file_key:', file_Key);
+        // console.log('Full Request body:', req.body);
+        const { file_key, file_name } = req.body;
+        console.log('file_key:', file_key);
         console.log('file_name:', file_name);
         
         res.status(200).json({
             status: 'success',
-            data: {file_Key, file_name}
+            data: {file_key, file_name}
         });
     } catch (error) {
         console.error(error);
