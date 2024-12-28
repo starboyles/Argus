@@ -66,8 +66,8 @@ const FileUpload = () => {
           },
           {
             onSuccess: (data) => {
-              console.log("Success:", data);
-              toast.success("Chat created successfully!");
+              console.log(data);
+              // toast.success("Chat created successfully!");
             },
             onError: (error) => {
               console.error("Error details:", error);
