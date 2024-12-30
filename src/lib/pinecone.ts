@@ -1,7 +1,10 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./server/s3-server";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
-import { Document,RecursiveCharacterTextSplitter} from '@pinecone-database/doc-splitter'
+import {
+  Document,
+  RecursiveCharacterTextSplitter,
+} from "@pinecone-database/doc-splitter";
 let pinecone: Pinecone | null = null;
 
 export const getPineconeClient = () => {
@@ -23,7 +26,7 @@ type PDFPage = {
 export async function loadS3IntoPinecone(fileKey: string) {
   //1. Obtain the .pdf download and read from it
 
-//   console.log("Downloading file from S3 into file system");
+  //   console.log("Downloading file from S3 into file system");
   const file_name = await downloadFromS3(fileKey);
   if (!file_name) {
     throw new Error("Could not download file from S3");
@@ -35,22 +38,25 @@ export async function loadS3IntoPinecone(fileKey: string) {
   return pages;
 }
 
+export const truncateStringByBytes = (str: string, bytes: number) => {
+  const enc = new TextEncoder();
+  return new TextDecoder("utf-8").decode(enc.encode(str).slice(0, bytes));
+};
 
+export async function prepareDocument(page: PDFPage) {
+  let { pageContent, metadata } = page;
+  pageContent = pageContent.replace(/\n/g, "");
+  // split the docs
+  const splitter = new RecursiveCharacterTextSplitter();
+  const docs = await splitter.splitDocuments([
+    new Document({
+      pageContent,
+      metadata: {
+        pageNumber: metadata.loc.pageNumber,
+        text: truncateStringByBytes(pageContent, 36000),
+      },
+    }),
+  ]);
 
-export async function prepareDocument (page: PDFPage){
-    let {pageContent, metadata } = page
-    pageContent = pageContent.replace(/\n/g, '')
-    // split the docs
-    const splitter = new RecursiveCharacterTextSplitter()
-    const docs = await splitter.splitDocuments([
-        new Document({
-            pageContent,
-            metadata: {
-                pageNumber: metadata.loc.pageNumber,
-                text: 
-            }
-        })
-    ])
-
-
+  return docs;
 }
