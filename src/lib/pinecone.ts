@@ -1,5 +1,6 @@
 import { Pinecone, RecordMetadata } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./server/s3-server";
+import { convertToAscii } from "./utils";
 import { getEmbeddings } from "../lib/embeddings";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import md5 from "md5";
@@ -53,10 +54,19 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
   //upload to pinecone
   const client = getPineconeClient();
-  const pineconeIndex = client.Index("argus");
+  const namespace = convertToAscii(fileKey);
+  const pineconeIndex = client.Index("argus").namespace(namespace);
 
   console.log(`Uploading vectors vectors to Pinecone`);
-  const namespace = fileKey;
+
+  try {
+    await pineconeIndex.upsert(vectors);
+    console.log(`Successfully uploaded vectors to Pinecone`);
+    return documents[0];
+  } catch (error) {
+    console.log("Error uploading to Pinecone", error);
+    throw error;
+  }
 }
 
 async function embedDocument(doc: Document) {
