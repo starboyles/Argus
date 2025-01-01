@@ -67,7 +67,7 @@ const FileUpload = () => {
             file_name: data.file_name,
           },
           {
-            onSuccess: (chat_id) => {
+            onSuccess: ( {chat_id} ) => {
             toast.success("Chat created successfully!");
             navigate(`/chat/${chat_id}`);
             },
