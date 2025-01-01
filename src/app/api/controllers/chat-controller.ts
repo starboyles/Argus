@@ -19,16 +19,19 @@ export const createChat = async (req: Request, res: Response) => {
     console.log("file_key:", file_key);
     console.log("file_name:", file_name);
     const pages = await loadS3IntoPinecone(file_key);
-    await db.insert(chats).values({
+    const chat_id = await db.insert(chats).values({
       fileKey: file_key,
       pdfName: file_name,
       pdfUrl: getS3Url(file_key),
       userId: "user_id",
-    });
-
+    }).
+    returning ({
+      insertedId: chats.id
+    })
     res.status(200).json({
       status: "success",
       data: {
+        chat_id: chat_id[0].insertedId,
         file_key,
         file_name,
         pages,
