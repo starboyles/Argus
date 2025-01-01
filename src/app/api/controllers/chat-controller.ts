@@ -32,9 +32,9 @@ export const createChat = async (req: Request, res: Response) => {
       status: "success",
       data: {
         chat_id: chat_id[0].insertedId,
-        file_key,
-        file_name,
-        pages,
+        // file_key,
+        // file_name,
+        // pages,
       },
     });
   } catch (error) {
