@@ -43,5 +43,5 @@ export function getS3Url(file_key: string) {
     throw new Error("VITE_AWS_BUCKET_NAME is not defined");
   }
   const url = `https://${process.env.VITE_AWS_BUCKET_NAME}.s3.ap-southeast-1.amazonaws.com/${file_key}`;
-  return url
+  return url;
 }
