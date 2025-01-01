@@ -13,6 +13,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.33.1",
     "@clerk/clerk-react": "^5.17.0",
+    "@clerk/clerk-sdk-node": "^5.1.4",
     "@langchain/anthropic": "^0.3.11",
     "@langchain/community": "^0.3.20",
     "@langchain/core": "^0.3.26",
