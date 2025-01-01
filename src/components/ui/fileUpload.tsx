@@ -4,6 +4,7 @@ import { uploadToS3 } from "../../lib/server/s3";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom"
 
 interface S3UploadResponse {
   file_key: string; 
@@ -11,6 +12,7 @@ interface S3UploadResponse {
   url: string;
 }
 const FileUpload = () => {
+  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: async ({
       file_key,
@@ -65,9 +67,9 @@ const FileUpload = () => {
             file_name: data.file_name,
           },
           {
-            onSuccess: (data) => {
-              console.log(data);
-              // toast.success("Chat created successfully!");
+            onSuccess: (chat_id) => {
+            toast.success("Chat created successfully!");
+            navigate(`/chat/${chat_id}`);
             },
             onError: (error) => {
               console.error("Error details:", error);
