@@ -67,9 +67,15 @@ const FileUpload = () => {
             file_name: data.file_name,
           },
           {
-            onSuccess: ( {chat_id} ) => {
-            toast.success("Chat created successfully!");
-            navigate(`/chat/${chat_id}`);
+            onSuccess: (response) => {
+              console.log("Response from server:", response); 
+              const chat_id = response.data.chat_id;
+              if (chat_id) {
+                toast.success("Chat created successfully!");
+                navigate(`/chat/${chat_id}`);
+              } else {
+                toast.error("No chat ID received");
+              }
             },
             onError: (error) => {
               console.error("Error details:", error);
