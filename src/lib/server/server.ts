@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { clerkMiddleware } from '@clerk/express'
-import { createChat } from "../../app/api/controllers/chat-controller";
+import { createChat } from '../../app/api/routes/create-chat';
 
 const app = express();
 dotenv.config();
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(clerkMiddleware());
 
 // Routes
-app.post("/api/v1/create-chat", createChat);
+app.use(createChat);
 
 // Start server
 const PORT = 8000;
