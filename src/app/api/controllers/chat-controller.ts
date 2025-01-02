@@ -13,7 +13,7 @@ interface AuthenticatedRequest extends Request {
   };
 }
 
-export const createChat = [
+export const createChatController = [
   requireAuth(),
   async (req: AuthenticatedRequest, res: Response) => {
     const { userId } = req.auth;
