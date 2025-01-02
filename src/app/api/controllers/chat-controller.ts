@@ -4,12 +4,10 @@ import { loadS3IntoPinecone } from "../../../lib/pinecone";
 import db from "../../../lib/server/db-connect";
 import { getS3Url } from "../../../lib/server/s3";
 import { requireAuth } from "@clerk/express";
-import { clerkMiddleware } from '@clerk/express'
-
 
 interface AuthenticatedRequest extends Request {
   auth: {
-    userId: string
+    userId: string;
   };
 }
 
@@ -29,15 +27,17 @@ export const createChatController = [
       console.log("file_key:", file_key);
       console.log("file_name:", file_name);
       const pages = await loadS3IntoPinecone(file_key);
-      const chat_id = await db.insert(chats).values({
-        fileKey: file_key,
-        pdfName: file_name,
-        pdfUrl: getS3Url(file_key),
-        userId: req.auth.userId,
-      }).
-      returning ({
-        insertedId: chats.id
-      })
+      const chat_id = await db
+        .insert(chats)
+        .values({
+          fileKey: file_key,
+          pdfName: file_name,
+          pdfUrl: getS3Url(file_key),
+          userId: req.auth.userId,
+        })
+        .returning({
+          insertedId: chats.id,
+        });
       res.status(200).json({
         status: "success",
         data: {
@@ -54,6 +54,5 @@ export const createChatController = [
         message: (error as Error).message,
       });
     }
-  }
+  },
 ];
-
