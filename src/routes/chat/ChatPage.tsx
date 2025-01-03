@@ -1,12 +1,22 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
+import { useEffect} from "react";
 
 const ChatPage = () => {
   const { chatId } = useParams();
-  
+  const { userId } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userId) {
+      navigate("/sign-in");
+    }
+  }, [userId, navigate]);
+
   return (
     <div>
-      <h1>Chat {chatId}</h1>
-      {/* Add your chat interface here */}
+      <h1>Chat ID: {chatId}</h1>
+      <p>User ID: {userId}</p>
     </div>
   );
 };
